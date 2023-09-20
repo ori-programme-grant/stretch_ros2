@@ -38,6 +38,7 @@
   <depend>rclpy</depend>
   <depend>std_msgs</depend>
   <depend>std_srvs</depend>
+  <depend>stretch_msgs</depend>
   <depend>tf_transformations</depend>
   <depend>tf2_ros</depend>
   <depend>laser_filters</depend>

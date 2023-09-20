@@ -25,6 +25,7 @@ from std_srvs.srv import SetBool
 from nav_msgs.msg import Odometry
 from sensor_msgs.msg import BatteryState, JointState, Imu, MagneticField
 from std_msgs.msg import Bool, String
+from stretch_msgs.srv import Float64
 
 from hello_helpers.gripper_conversion import GripperConversion
 from .joint_trajectory_server import JointTrajectoryAction
@@ -445,6 +446,25 @@ class StretchDriver(Node):
 
     # SERVICE CALLBACKS ##############
 
+    ## Newly added bugfix for commanding the robot
+    def rotate_by_callback(self, request, response):
+        self.robot_mode_rwlock.acquire_write()
+        self.robot.base.rotate_by(request.data)
+        self.robot.push_command()
+        self.robot.base.wait_until_at_setpoint()
+        response.success = True
+        self.robot_mode_rwlock.release_write()
+        return response
+
+    def translate_by_callback(self, request, response):
+        self.robot_mode_rwlock.acquire_write()
+        self.robot.base.translate_by(request.data)
+        self.robot.push_command()
+        self.robot.base.wait_until_at_setpoint()
+        response.success = True
+        self.robot_mode_rwlock.release_write()
+        return response
+
     def stop_the_robot_callback(self, request, response):
         with self.robot_stop_lock:
             self.robot.base.translate_by(0.0)
@@ -655,6 +675,14 @@ class StretchDriver(Node):
         self.switch_to_trajectory_mode_service = self.create_service(Trigger,
                                                                        '/switch_to_trajectory_mode',
                                                                        self.trajectory_mode_service_callback)
+
+        self.rotate_by_service = self.create_service(Float64,
+                                                     '/rotate_robot',
+                                                     self.rotate_by_callback)
+
+        self.translate_by_service = self.create_service(Float64,
+                                                        '/translate_robot',
+                                                        self.translate_by_callback)
 
         self.stop_the_robot_service = self.create_service(Trigger,
                                                           '/stop_the_robot',

@@ -1,0 +1,5 @@
+float64 data
+---
+bool success
+bool message
+
