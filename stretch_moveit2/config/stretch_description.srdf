@@ -70,7 +70,7 @@
         <joint name="joint_arm_l1" value="0.0"/>
         <joint name="joint_arm_l2" value="0.0"/>
         <joint name="joint_arm_l3" value="0.0"/>
-        <joint name="joint_lift" value="0.2"/>
+        <joint name="joint_lift" value="0.4"/>
         <joint name="joint_wrist_yaw" value="3.4"/>
     </group_state>
     <group_state name="extended" group="stretch_arm">
@@ -462,4 +462,6 @@
     <disable_collisions link1="link_right_wheel" link2="respeaker_base" reason="Never"/>
     <disable_collisions link1="link_wrist_yaw" link2="respeaker_base" reason="Never"/>
     <disable_collisions link1="caster_link" link2="base_link" reason="Adjacent"/>
+
+    <disable_collisions link1="link_gripper_fingertip_left" link2="link_gripper_fingertip_right" reason="Never"/>
 </robot>
