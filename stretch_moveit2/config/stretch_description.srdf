@@ -41,7 +41,7 @@
 
     <!--GROUP STATES Purpose Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
     <group_state name="lift_down" group="stretch_arm">
-        <joint name="joint_lift" value="0.2"/>
+        <joint name="joint_lift" value="0.45"/>
     </group_state>
     <group_state name="lift_up" group="stretch_arm">
         <joint name="joint_lift" value="1.0"/>
@@ -70,7 +70,7 @@
         <joint name="joint_arm_l1" value="0.0"/>
         <joint name="joint_arm_l2" value="0.0"/>
         <joint name="joint_arm_l3" value="0.0"/>
-        <joint name="joint_lift" value="0.4"/>
+        <joint name="joint_lift" value="0.45"/>
         <joint name="joint_wrist_yaw" value="3.4"/>
     </group_state>
     <group_state name="extended" group="stretch_arm">
@@ -110,7 +110,7 @@
         <joint name="joint_arm_l1" value="0"/>
         <joint name="joint_arm_l2" value="0"/>
         <joint name="joint_arm_l3" value="0"/>
-        <joint name="joint_lift" value="0.2"/>
+        <joint name="joint_lift" value="0.45"/>
         <joint name="joint_wrist_yaw" value="3.14159265358979323846264338327950"/>
         <joint name="position" value="0 0 0"/>
     </group_state>
@@ -119,7 +119,7 @@
         <joint name="joint_arm_l1" value="0"/>
         <joint name="joint_arm_l2" value="0"/>
         <joint name="joint_arm_l3" value="0"/>
-        <joint name="joint_lift" value="0.1033"/>
+        <joint name="joint_lift" value="0.45"/>
         <joint name="joint_wrist_yaw" value="0"/>
         <joint name="position" value="1 0 0"/>
     </group_state>
