@@ -5,8 +5,8 @@
 
 # For beginners, we downscale velocity and acceleration limits.
 # You can always specify higher scaling factors (<= 1.0) in your motion requests.  # Increase the values below to 1.0 to always move at maximum speed.
-            default_velocity_scaling_factor: 0.5
-            default_acceleration_scaling_factor: 0.5
+            default_velocity_scaling_factor: 0.1
+            default_acceleration_scaling_factor: 0.1
 
             # Specific joint properties can be changed with the keys [max_position, min_position, max_velocity, max_acceleration]
             # Joint limits can be turned off with [has_velocity_limits, has_acceleration_limits]
@@ -33,29 +33,29 @@
                 max_acceleration: 0.02
               joint_gripper_finger_left:
                 has_velocity_limits: true
-                max_velocity: 0.1
+                max_velocity: 0.07
                 has_acceleration_limits: true
-                max_acceleration: 0.1
+                max_acceleration: 0.07
               joint_gripper_finger_right:
                 has_velocity_limits: true
-                max_velocity: 0.1
+                max_velocity: 0.07
                 has_acceleration_limits: true
-                max_acceleration: 0.1
+                max_acceleration: 0.07
               joint_head_pan:
                 has_velocity_limits: true
-                max_velocity: 1.0
+                max_velocity: 0.5
                 has_acceleration_limits: true
                 max_acceleration: 1.0
               joint_head_tilt:
                 has_velocity_limits: true
-                max_velocity: 1.0
+                max_velocity: 0.5
                 has_acceleration_limits: true
                 max_acceleration: 1.0
               joint_lift:
                 has_velocity_limits: true
-                max_velocity: 0.15
+                max_velocity: 0.06
                 has_acceleration_limits: true
-                max_acceleration: 0.15
+                max_acceleration: 0.04
               joint_wrist_yaw:
                 has_velocity_limits: true
                 max_velocity: 0.5
