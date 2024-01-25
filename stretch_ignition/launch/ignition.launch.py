@@ -1,17 +1,16 @@
 import os
-import yaml
+
 import xacro
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
-from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch_ros.actions import Node
-from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.conditions import IfCondition, UnlessCondition
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import LaunchConfiguration
+from launch_ros.actions import Node
+
 
 def generate_launch_description():
-
     use_sim_time = LaunchConfiguration('use_sim_time', default=True)
     rviz_arg = LaunchConfiguration('rviz', default=False)
     aws_arg = LaunchConfiguration('aws', default=False)
@@ -29,7 +28,7 @@ def generate_launch_description():
         executable="robot_state_publisher",
         name="robot_state_publisher",
         output="both",
-        parameters=[robot_description],
+        parameters=[robot_description, {'use_sim_time': use_sim_time}],
     )
 
     # Ignition gazebo
@@ -57,6 +56,7 @@ def generate_launch_description():
         package='rviz2',
         executable='rviz2',
         arguments=['-d', os.path.join(pkg_stretch_ignition, 'rviz', 'stretch_ignition.rviz')],
+        parameters=[{'use_sim_time': use_sim_time}],
         condition=IfCondition(rviz_arg)
     )
 
@@ -161,53 +161,53 @@ def generate_launch_description():
                         executable='static_transform_publisher',
                         name='lidar_static_transform_publisher',
                         output='log',
-                        arguments=['0', '0.0', '0.0', '0.0', '0.0', '0.0', 'laser', 'stretch/link_laser/gpu_lidar'])
+                        arguments=['0', '0.0', '0.0', '0.0', '0.0', '0.0', 'laser', 'stretch/link_laser/gpu_lidar'],)
     imu_static_tf = Node(package='tf2_ros',
                         executable='static_transform_publisher',
                         name='imu_static_transform_publisher',
                         output='log',
-                        arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'base_link', 'stretch/base_link/imu'])
+                        arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'base_link', 'stretch/base_link/imu'],)
     mag_static_tf = Node(package='tf2_ros',
                         executable='static_transform_publisher',
                         name='mag_static_transform_publisher',
                         output='log',
-                        arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'base_link', 'stretch/base_link/magnetometer'])
+                        arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'base_link', 'stretch/base_link/magnetometer'],)
     wrist_imu_static_tf = Node(package='tf2_ros',
                         executable='static_transform_publisher',
                         name='wrist_imu_static_transform_publisher',
                         output='log',
-                        arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'link_wrist_yaw', 'stretch/link_wrist_yaw/wrist_imu'])
+                        arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'link_wrist_yaw', 'stretch/link_wrist_yaw/wrist_imu'],)
     realsense_imu_static_tf = Node(package='tf2_ros',
                         executable='static_transform_publisher',
                         name='realsense_imu_static_transform_publisher',
                         output='log',
-                        arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'camera_gyro_frame', 'stretch/camera_gyro_frame/realsense_imu'])
+                        arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'camera_gyro_frame', 'stretch/camera_gyro_frame/realsense_imu'],)
     realsense_color_static_tf = Node(package='tf2_ros',
                         executable='static_transform_publisher',
-                        name='rgbd_static_transform_publisher',
+                        name='realsense_color_static_transform_publisher',
                         output='log',
-                        arguments=['0.0', '0.0', '0.0', '0', '0', '0', 'camera_color_optical_frame', 'stretch/camera_color_optical_frame/realsense_d435_color'])
+                        arguments=['0.0', '0.0', '0.0', '0', '-1.57', '1.57', 'camera_color_optical_frame', 'stretch/camera_color_optical_frame/realsense_d435_color'],)
     realsense_depth_static_tf = Node(package='tf2_ros',
                         executable='static_transform_publisher',
-                        name='rgbd_static_transform_publisher',
+                        name='realsense_depth_static_transform_publisher',
                         output='log',
-                        arguments=['0.0', '0.0', '0.0', '0', '0', '0', 'camera_depth_optical_frame', 'stretch/camera_depth_optical_frame/realsense_d435'])
+                        arguments=['0.0', '0.0', '0.0', '0', '-1.57', '1.57', 'camera_depth_optical_frame', 'stretch/camera_depth_optical_frame/realsense_d435'],)
     realsense_ir_static_tf = Node(package='tf2_ros',
                         executable='static_transform_publisher',
-                        name='rgbd_static_transform_publisher',
+                        name='realsense_ir_static_transform_publisher',
                         output='log',
-                        arguments=['0.0', '0.0', '0.0', '0', '0', '0', 'camera_infra1_optical_frame', 'stretch/camera_infra1_optical_frame/realsense_d435_ir'])
+                        arguments=['0.0', '0.0', '0.0', '0', '-1.57', '1.57', 'camera_infra1_optical_frame', 'stretch/camera_infra1_optical_frame/realsense_d435_ir'],)
     realsense_ir2_static_tf = Node(package='tf2_ros',
                         executable='static_transform_publisher',
-                        name='rgbd_static_transform_publisher',
+                        name='realsense_ir2_static_transform_publisher',
                         output='log',
-                        arguments=['0.0', '0.0', '0.0', '0', '0', '0', 'camera_infra2_optical_frame', 'stretch/camera_infra2_optical_frame/realsense_d435_ir2'])
+                        arguments=['0.0', '0.0', '0.0', '0', '-1.57', '1.57', 'camera_infra2_optical_frame', 'stretch/camera_infra2_optical_frame/realsense_d435_ir2'],)
 
     map_static_tf = Node(package='tf2_ros',
                         executable='static_transform_publisher',
                         name='static_transform_publisher',
                         output='log',
-                        arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'odom', 'map'])
+                        arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'odom', 'map'],)
 
     # Controllers 
     # TODO (vatanaksoytezer): Use ros_ign_control when it is ready
@@ -215,6 +215,7 @@ def generate_launch_description():
         package="stretch_ignition_control",
         executable="stretch_ignition_control_action_server",
         name="stretch_ignition_control",
+        parameters=[{'use_sim_time': use_sim_time}],
         output="screen",
     )
 
@@ -222,6 +223,7 @@ def generate_launch_description():
     odom2tf = Node(
         package="stretch_ignition",
         executable="odom2tf",
+        parameters=[{'use_sim_time': use_sim_time}],
         name="odom2tf",
         output="screen",
     )
@@ -231,6 +233,7 @@ def generate_launch_description():
         package="stretch_ignition",
         executable="stretch_sticky_static_tf_publisher",
         name="stretch_sticky_static_tf_publisher",
+        parameters=[{'use_sim_time': use_sim_time}],
         output="screen",
     )
 
@@ -251,6 +254,7 @@ def generate_launch_description():
     navigation = IncludeLaunchDescription(
     PythonLaunchDescriptionSource(
         os.path.join(pkg_stretch_ignition, 'launch', 'navigation.launch.py')),
+        launch_arguments={'use_sim_time': use_sim_time}.items(),
         condition=IfCondition(nav_arg),
     )
 
@@ -282,7 +286,16 @@ def generate_launch_description():
             stretch_ignition_control_node,
             map_static_tf,
             odom2tf,
-            stretch_sticky_static_tf_publisher,
+            #stretch_sticky_static_tf_publisher,
+            lidar_static_tf,
+            imu_static_tf,
+            mag_static_tf,
+            wrist_imu_static_tf,
+            realsense_imu_static_tf,
+            realsense_color_static_tf,
+            realsense_depth_static_tf,
+            realsense_ir_static_tf,
+            realsense_ir2_static_tf,
             rviz,
             navigation
         ]
