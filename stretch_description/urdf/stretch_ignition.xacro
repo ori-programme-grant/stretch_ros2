@@ -2,6 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="stretch_description">
 
   <xacro:arg name="realsense_extra_topics" default="false"/>
+  <xacro:arg name="realsense" default="true"/>
 
   <xacro:include filename="stretch_description.xacro" />
   <xacro:include filename="stretch_ignition_plugins.xacro" />
