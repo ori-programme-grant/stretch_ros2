@@ -84,7 +84,7 @@
 
     <include>
       <static>false</static>
-      <uri>model://can</uri>
+      <uri>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Coke</uri>
       <pose>-0.025 -0.6 1.0 0 0 0</pose>
     </include>
 
