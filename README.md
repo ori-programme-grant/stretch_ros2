@@ -2,7 +2,9 @@
 
 ## Getting Started
 
-This repository holds ROS 2 Humble packages for the Stretch mobile manipulators from Hello Robot Inc. To get started with this code, take a look at the [Stretch ROS 2 Tutorials](https://docs.hello-robot.com/0.3/ros2/getting_started/). If you are porting code build on Stretch's ROS 1 Noetic packages, check out the [Migrating to ROS 2]((https://docs.hello-robot.com/0.3/ros2/TODO/) guide.
+This repository holds ROS 2 Humble packages for the Stretch mobile manipulators from Hello Robot Inc. To get started with this code, take a look at the [Stretch ROS 2 Tutorials](https://docs.hello-robot.com/0.3/ros2/getting_started/). If your robot's operating system doesn't contain ROS 2 (details on distributions [here](https://docs.hello-robot.com/0.3/software/distributions/)), check out the [Upgrading your Operating System](https://docs.hello-robot.com/0.3/installation/robot_install/) guide.
+
+<!--- TODO: If you are porting code build on Stretch's ROS 1 Noetic packages, check out the [Migrating to ROS 2]((https://docs.hello-robot.com/0.3/ros2/TODO/) guide. -->
 
 ## Directories
 
