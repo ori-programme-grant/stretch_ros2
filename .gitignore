@@ -22,3 +22,8 @@ stretch_description/urdf/exported_urdf_previous
 stretch_description/urdf/exported_urdf_previous/*
 stretch_funmap/stretch_funmap/cython_min_cost_path.c
 stretch_navigation/map/
+
+# Vim files
+*.swp
+*.swn
+*.swo
