@@ -45,6 +45,13 @@ If this shows the correct path, follow the instructions in the script to downloa
 
 After this, you will need to follow the instructions in [stretch_calibration](https://github.com/hello-robot/stretch_ros2/tree/humble/stretch_calibration) to get a calibrated URDF.
 
+Lastly, rebuild the workspace for the new URDF to take effect.
+
+```
+cd ~/ament_ws
+colcon build
+```
+
 ## Exporting a URDF
 
 Sometimes a URDF is useful outside of ROS, such as for simulations and analysis. To export the URDF, run:
@@ -71,32 +78,6 @@ DONE!
 ```
 
 The exported URDF will be copied to your robot's calibration data directory (at "~/stretch_user/stretch-yyy-xxxx/exported_urdf/"). It will include the calibrated URDF, meshes, and calibrated controller parameters. Once the URDF has been exported, it can be visualized using a command line tool called `stretch_urdf_viz`.
-
-## Changing the Tool
-
-If you want to generate a new URDF for Stretch (e.g. after attaching a new tool to Stretch), you can:
-
-1. Edit the [`stretch_description.xacro`](./urdf/stretch_description.xacro) file in the Stretch Description package.
-
-   Include the tool you want in the `stretch_description.xacro`. By default, it will include `stretch_gripper.xacro`. Simply comment out
-   the old `<xacro:include ...` lines and paste in new ones for your tool. Example code for the other supported tools can be found by
-   looking at the files matching `stretch_description_<tool-name>.xacro`. To add your own custom tool, copy your xacro/mesh files into
-   the urdf/meshes folders in the Stretch Description package.
-
-1. In a terminal run
-
-   ```
-   ros2 run stretch_calibration update_urdf_after_xacro_change
-   ```
-
-1. Rebuild the workspace
-
-   ```
-   cd ~/ament_ws
-   colcon build
-   ```
-
-This will create a calibrated URDF called `stretch.urdf` using the most recent calibration parameters. Rviz will now show the new URDF.
 
 ## License and Patents
 
