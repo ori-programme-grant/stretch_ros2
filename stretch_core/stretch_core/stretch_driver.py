@@ -313,7 +313,7 @@ class StretchDriver(Node):
         # misuse the 'present' flag to indicated whether the barrel jack button is pressed (i.e. charger is present, but may or may not be providing power)
         if pimu_hardware_id == 0:
             battery_state.present = False
-        elif pimu_hardware_id == 1 or pimu_hardware_id == 2:
+        elif pimu_hardware_id == 1 or pimu_hardware_id == 2 or pimu_hardware_id == 3:
             battery_state.present = robot_status['pimu']['charger_connected']
         self.power_pub.publish(battery_state)
         
