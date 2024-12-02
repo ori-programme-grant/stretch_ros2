@@ -230,18 +230,18 @@ class StretchDriver(Node):
             t.transform.rotation.w = q[3]
             self.tf_broadcaster.sendTransform(t)
 
-            b = TransformStamped()
-            b.header.stamp = current_time
-            b.header.frame_id = self.base_frame_id
-            b.child_frame_id = "base_footprint"
-            b.transform.translation.x = 0.0
-            b.transform.translation.y = 0.0
-            b.transform.translation.z = 0.0
-            b.transform.rotation.x = 0.0
-            b.transform.rotation.y = 0.0
-            b.transform.rotation.z = 0.0
-            b.transform.rotation.w = 1.0
-            self.tf_broadcaster.sendTransform(b)
+        b = TransformStamped()
+        b.header.stamp = current_time
+        b.header.frame_id = self.base_frame_id
+        b.child_frame_id = "base_footprint"
+        b.transform.translation.x = 0.0
+        b.transform.translation.y = 0.0
+        b.transform.translation.z = 0.0
+        b.transform.rotation.x = 0.0
+        b.transform.rotation.y = 0.0
+        b.transform.rotation.z = 0.0
+        b.transform.rotation.w = 1.0
+        self.tf_broadcaster.sendTransform(b)
 
         # publish odometry via the odom topic
         odom = Odometry()
@@ -313,7 +313,7 @@ class StretchDriver(Node):
         # misuse the 'present' flag to indicated whether the barrel jack button is pressed (i.e. charger is present, but may or may not be providing power)
         if pimu_hardware_id == 0:
             battery_state.present = False
-        elif pimu_hardware_id == 1 or pimu_hardware_id == 2:
+        elif pimu_hardware_id == 1 or pimu_hardware_id == 2 or pimu_hardware_id == 3:
             battery_state.present = robot_status['pimu']['charger_connected']
         self.power_pub.publish(battery_state)
         
@@ -463,7 +463,7 @@ class StretchDriver(Node):
             self.runstop_the_robot(runstop_event.data, just_change_mode=True)
         self.prev_runstop_state = runstop_event.data
         
-        self.robot.pimu.set_fan_on()
+        #self.robot.pimu.set_fan_on()
         self.robot.non_dxl_thread.step()
         if not self.robot_mode == 'trajectory':
             self.robot.push_command() # Main push command
@@ -689,8 +689,9 @@ class StretchDriver(Node):
         self.declare_parameter('broadcast_odom_tf', False)
         self.broadcast_odom_tf = self.get_parameter('broadcast_odom_tf').value
         self.get_logger().info('broadcast_odom_tf = ' + str(self.broadcast_odom_tf))
-        if self.broadcast_odom_tf:
-            self.tf_broadcaster = tf2_ros.TransformBroadcaster(self)
+        # if self.broadcast_odom_tf:
+        #     self.tf_broadcaster = tf2_ros.TransformBroadcaster(self)
+        self.tf_broadcaster = tf2_ros.TransformBroadcaster(self)
 
         large_ang = np.radians(45.0)
 
